@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="矩阵的基础定义 矩阵是3D数学的重要基础，它主要用来描述两个坐标系之间的关系，通过定义一种运算将一个坐标系中的向量转换到另一个坐标系中。 矩阵的数学定义 在线性代数中，矩阵就是以行和列形式组织的矩形数字块。例如下列的一个3x4的矩阵： \[\begin{bmatrix} 0&amp;-1&amp;1&amp;1 \\ 1&amp;0&amp;1&amp;4 \\ 2&amp;1&amp;3&amp;amp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="矩阵">
+<meta property="og:url" content="http://yoursite.com/2020/04/01/%E6%95%B0%E5%AD%A6%E7%89%A9%E7%90%86/%E7%9F%A9%E9%98%B5/index.html">
+<meta property="og:site_name" content="张卫的博客">
+<meta property="og:description" content="矩阵的基础定义 矩阵是3D数学的重要基础，它主要用来描述两个坐标系之间的关系，通过定义一种运算将一个坐标系中的向量转换到另一个坐标系中。 矩阵的数学定义 在线性代数中，矩阵就是以行和列形式组织的矩形数字块。例如下列的一个3x4的矩阵： \[\begin{bmatrix} 0&amp;-1&amp;1&amp;1 \\ 1&amp;0&amp;1&amp;4 \\ 2&amp;1&amp;3&amp;amp">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-01T03:02:05.000Z">
+<meta property="article:modified_time" content="2021-03-03T14:33:17.592Z">
+<meta property="article:author" content="张卫">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/01/%E6%95%B0%E5%AD%A6%E7%89%A9%E7%90%86/%E7%9F%A9%E9%98%B5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>矩阵 | 张卫的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">张卫的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/01/%E6%95%B0%E5%AD%A6%E7%89%A9%E7%90%86/%E7%9F%A9%E9%98%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="张卫">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张卫的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          矩阵
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-01 11:02:05" itemprop="dateCreated datePublished" datetime="2020-04-01T11:02:05+08:00">2020-04-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-03 22:33:17" itemprop="dateModified" datetime="2021-03-03T22:33:17+08:00">2021-03-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6%E7%89%A9%E7%90%86/" itemprop="url" rel="index">
+                    <span itemprop="name">数学物理</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="矩阵的基础定义">矩阵的基础定义</h1>
+<p>矩阵是3D数学的重要基础，它主要用来描述两个坐标系之间的关系，通过定义一种运算将一个坐标系中的向量转换到另一个坐标系中。</p>
+<h2 id="矩阵的数学定义">矩阵的数学定义</h2>
+<p>在线性代数中，矩阵就是以行和列形式组织的矩形数字块。例如下列的一个3x4的矩阵：</p>
+<span class="math display">\[\begin{bmatrix} 0&amp;-1&amp;1&amp;1 \\ 1&amp;0&amp;1&amp;4 \\ 2&amp;1&amp;3&amp;-4 \end{bmatrix}\]</span>
+<a id="more"></a>
+<h3 id="方阵">方阵</h3>
+<p>行和列数相同的矩阵被定义为方阵，例如：2x2, 3x3, 4x4的矩阵都是方阵。方阵的对角线元素就是行号和列号都相同的元素。例如：3x3的矩阵<strong>M</strong>的对角线元素为<span class="math inline">\(m_{11}\)</span>, <span class="math inline">\(m_{22}\)</span>, <span class="math inline">\(m_{33}\)</span>。其他元素为非对角线元素。</p>
+<h3 id="对角矩阵">对角矩阵</h3>
+<p>非对角线元素都为0的元素为对角矩阵。</p>
+<h3 id="单位矩阵">单位矩阵</h3>
+<p>单位矩阵是一种特殊的对角矩阵。它的对角元素都为1，非对角元素都为0. 单位矩阵非常特殊，因为它是矩阵的<strong>乘法单位元</strong>，其性质是用任意一个矩阵乘以单位矩阵，都将得到原矩阵。</p>
+<h2 id="矩阵运算">矩阵运算</h2>
+<h3 id="矩阵转置">矩阵转置</h3>
+<p>一个r x c的矩阵<strong>M</strong>。<strong>M</strong>的转置记作<strong><span class="math inline">\(M^T\)</span></strong>, 是一个c x r的矩阵，它的列由<strong>M</strong>的行组成。可以从另一方面理解，<strong><span class="math inline">\(M_{ij}^T = M_{ji}\)</span> ,</strong>及沿着对角线翻折。例如：</p>
+<p><span class="math inline">\(\begin{bmatrix} 0&amp;-1&amp;1&amp;1 \\ 1&amp;0&amp;1&amp;4 \\ 2&amp;1&amp;3&amp;-4 \end{bmatrix}^T = \begin{bmatrix} 0&amp;1&amp;2 \\ -1&amp;0&amp;1 \\ 1&amp;1&amp;3 \\ 1&amp;4&amp;-4 \end{bmatrix}\)</span></p>
+<h3 id="标量与矩阵乘法">标量与矩阵乘法</h3>
+<p><span class="math inline">\(k\textbf{M}=k\begin{bmatrix} m_{11}&amp;m_{12}&amp;m_{13} \\ m_{21}&amp;m_{22}&amp;m_{23} \\ m_{31}&amp;m_{32}&amp;m_{33} \end{bmatrix}= \begin{bmatrix} km_{11}&amp;km_{12}&amp;km_{13} \\ km_{21}&amp;km_{22}&amp;km_{23} \\ km_{31}&amp;km_{32}&amp;km_{33} \end{bmatrix}\)</span></p>
+<h3 id="矩阵乘法">矩阵乘法</h3>
+<p>在某些情况下，两个矩阵可以相乘。决定矩阵能否相乘以及怎么计算结果的法则初看起来有些奇怪。一个r x n 矩阵<strong>A</strong>能够乘以一个n x c的矩阵<strong>B</strong>,结果是一个r x c的矩阵，记作 <strong>AB</strong>。矩阵乘法计算如下：记r x n矩阵<strong>A</strong>与n x c矩阵<strong>B</strong>的积r x c 矩阵<strong>AB</strong>为<strong>C</strong>。 <strong>C</strong>的任意元素<span class="math inline">\(\textbf{C}_{ij}\)</span>等于<strong>A</strong>的第i行向量与<strong>B</strong>的第j列向量的点乘结果。 正式定义为：</p>
+<p><span class="math inline">\(c_{ij} = \sum_{k=1}^{n}a_{ik}b_{kj}\)</span></p>
+<p><strong>矩阵乘法满足的定律（前提是矩阵乘法有意义）：</strong></p>
+<ul>
+<li><p>任意矩阵<strong>M</strong>乘以单位矩阵<strong>I</strong>的到原矩阵 <strong>MI=IM=M</strong></p></li>
+<li><p>矩阵乘法不满足交换律，即 <strong>AB <span class="math inline">\(\neq\)</span> BA</strong></p></li>
+<li><p>矩阵乘法满足结合律，即 <strong>(AB)C=A(BC)</strong></p></li>
+<li><p>矩阵的转置<strong><span class="math inline">\((AB)^T = B^TA^T\)</span></strong></p></li>
+</ul>
+<h3 id="向量与矩阵的乘法">向量与矩阵的乘法</h3>
+<p>因为向量能被当作是一个行或一列的矩阵，所以能够用上一节的矩阵乘法来计算。但是左乘矩阵和右乘矩阵这个两个的区别特别重要。例如，用矩阵<strong>A， B</strong>和<strong>C</strong>转换向量<strong>v</strong>,用行向量记法记作<strong>vABC</strong>。注意矩阵按顺序从左往右列出。如果使用列向量，矩阵放在左边，转换从右往左发生，这种情况下应该记作<strong>CBAv</strong></p>
+<h2 id="矩阵的几何定义">矩阵的几何定义</h2>
+<p>一般来说，方阵能够描述任意线性变换，比如：</p>
+<ul>
+<li>旋转</li>
+<li>缩放</li>
+<li>投影</li>
+<li>镜像</li>
+<li>仿射</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/04/01/%E6%B8%B8%E6%88%8F/%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95/%E6%B8%B8%E6%88%8F%E5%AF%BB%E8%B7%AF%E4%BB%8B%E7%BB%8D/" rel="next" title="游戏寻路介绍">
+                  <i class="fa fa-chevron-left"></i> 游戏寻路介绍
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2020/06/03/Laya/Laya%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/" rel="prev" title="Laya踩坑日记">
+                  Laya踩坑日记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#矩阵的基础定义"><span class="nav-number">1.</span> <span class="nav-text">矩阵的基础定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵的数学定义"><span class="nav-number">1.1.</span> <span class="nav-text">矩阵的数学定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方阵"><span class="nav-number">1.1.1.</span> <span class="nav-text">方阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对角矩阵"><span class="nav-number">1.1.2.</span> <span class="nav-text">对角矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单位矩阵"><span class="nav-number">1.1.3.</span> <span class="nav-text">单位矩阵</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵运算"><span class="nav-number">1.2.</span> <span class="nav-text">矩阵运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵转置"><span class="nav-number">1.2.1.</span> <span class="nav-text">矩阵转置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标量与矩阵乘法"><span class="nav-number">1.2.2.</span> <span class="nav-text">标量与矩阵乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵乘法"><span class="nav-number">1.2.3.</span> <span class="nav-text">矩阵乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向量与矩阵的乘法"><span class="nav-number">1.2.4.</span> <span class="nav-text">向量与矩阵的乘法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵的几何定义"><span class="nav-number">1.3.</span> <span class="nav-text">矩阵的几何定义</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="张卫"
+    src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">张卫</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/zw514159799" title="CSDN &amp;rarr; https:&#x2F;&#x2F;blog.csdn.net&#x2F;zw514159799" rel="noopener" target="_blank"><i class="fa fa-fw fa-csdn"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/Divad1111?tab=repositories" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;Divad1111?tab&#x3D;repositories" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.cnblogs.com/qilezaitu" title="博客园 &amp;rarr; https:&#x2F;&#x2F;www.cnblogs.com&#x2F;qilezaitu" rel="noopener" target="_blank"><i class="fa fa-fw fa-cnblogs"></i>博客园</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://baidu.com/" title="https:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://bing.com/" title="https:&#x2F;&#x2F;bing.com" rel="noopener" target="_blank">Bing</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张卫</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">24k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+</body>
+</html>

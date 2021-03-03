@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="向量的基本定义 数学定义 向量就是一个数列，是一个只有大小和方向的一个数学量，和标量不同，标量是一个只有大小的量。向量的记法如下： 行向量:a&#x3D;\(\begin{bmatrix}1&amp;2&amp;3\end{bmatrix}\) 列向量:a&#x3D;\(\begin{bmatrix}1\\2\\3\end{bmatrix}\) 几何定义 向量是有大小和方向的有向线段。向量和点不同点表示了一个固定的位">
+<meta property="og:type" content="article">
+<meta property="og:title" content="向量">
+<meta property="og:url" content="http://yoursite.com/2020/04/01/%E6%95%B0%E5%AD%A6%E7%89%A9%E7%90%86/%E5%90%91%E9%87%8F/index.html">
+<meta property="og:site_name" content="张卫的博客">
+<meta property="og:description" content="向量的基本定义 数学定义 向量就是一个数列，是一个只有大小和方向的一个数学量，和标量不同，标量是一个只有大小的量。向量的记法如下： 行向量:a&#x3D;\(\begin{bmatrix}1&amp;2&amp;3\end{bmatrix}\) 列向量:a&#x3D;\(\begin{bmatrix}1\\2\\3\end{bmatrix}\) 几何定义 向量是有大小和方向的有向线段。向量和点不同点表示了一个固定的位">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAxMjM0OTE1ODY5?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAyMTgyOTUzNzMw?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAyMTg1OTEwNTM5?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAyMjIyNTUzODM0?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAyMjM0MzMyODg1?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAyMjMxNjIwNzEx?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAzMTEwNjMwNDk0?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAzMTEzOTU2NzUx?x-oss-process=image/format,png">
+<meta property="article:published_time" content="2020-04-01T03:02:05.000Z">
+<meta property="article:modified_time" content="2021-03-03T14:33:17.591Z">
+<meta property="article:author" content="张卫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAxMjM0OTE1ODY5?x-oss-process=image/format,png">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/01/%E6%95%B0%E5%AD%A6%E7%89%A9%E7%90%86/%E5%90%91%E9%87%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>向量 | 张卫的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">张卫的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/01/%E6%95%B0%E5%AD%A6%E7%89%A9%E7%90%86/%E5%90%91%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="张卫">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张卫的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          向量
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-01 11:02:05" itemprop="dateCreated datePublished" datetime="2020-04-01T11:02:05+08:00">2020-04-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-03 22:33:17" itemprop="dateModified" datetime="2021-03-03T22:33:17+08:00">2021-03-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6%E7%89%A9%E7%90%86/" itemprop="url" rel="index">
+                    <span itemprop="name">数学物理</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="向量的基本定义">向量的基本定义</h1>
+<h2 id="数学定义">数学定义</h2>
+<p>向量就是一个数列，是一个只有大小和方向的一个数学量，和标量不同，标量是一个只有大小的量。向量的记法如下：</p>
+<p>行向量:<strong>a</strong>=<span class="math inline">\(\begin{bmatrix}1&amp;2&amp;3\end{bmatrix}\)</span></p>
+<p>列向量:<strong>a</strong>=<span class="math inline">\(\begin{bmatrix}1\\2\\3\end{bmatrix}\)</span></p>
+<h2 id="几何定义">几何定义</h2>
+<p>向量是有大小和方向的有向线段。向量和点不同点表示了一个固定的位置然而向量是没有位置的，你画在任何地方都行，因为向量表示它在各个方向上的位移关系。向量的几何表示如下图： <img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAxMjM0OTE1ODY5?x-oss-process=image/format,png" alt="这里写图片描述" /></p>
+<a id="more"></a>
+<h1 id="向量的运算">向量的运算</h1>
+<h2 id="负向量">负向量</h2>
+<p>负向量就是在一个向量的前面加上一个负号。例如：<strong>a</strong>=<span class="math inline">\(\begin{bmatrix}1&amp;2&amp;3\end{bmatrix}\)</span>,它的负向量就是<span class="math inline">\(\begin{bmatrix}-1&amp;-2&amp;-3\end{bmatrix}\)</span></p>
+<p><strong>运算法则</strong></p>
+<p>-<span class="math inline">\(\begin{bmatrix}a_1&amp;a_2&amp;\cdots&amp;a_n\end{bmatrix}\)</span>=<span class="math inline">\(\begin{bmatrix}-a_1&amp;-a_2&amp;\cdots&amp;-a_n\end{bmatrix}\)</span></p>
+<p><strong>几何解释</strong></p>
+<p>向量变负，将得到一个和原向量大小相等，方向相反的向量。如下图： <img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAyMTgyOTUzNzMw?x-oss-process=image/format,png" alt="这里写图片描述" /></p>
+<h2 id="标量与向量的乘法">标量与向量的乘法</h2>
+<p>向量与标量相乘，结果将得到一个与原向量平行，但长度不同或方向相反的向量。</p>
+<p><strong>运算法则</strong></p>
+<p>将向量中的每个元素和标量相乘。公式如下：</p>
+<p><span class="math display">\[k\begin{bmatrix}a_1\\ a_2\\ \vdots\\a_n\end{bmatrix}=\begin{bmatrix}ka_1\\ ka_2\\ \vdots\\ka_n\end{bmatrix}\]</span></p>
+<p><strong>几何解释</strong></p>
+<p>按照k的缩放因子进行缩放，如下： <img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAyMTg1OTEwNTM5?x-oss-process=image/format,png" alt="这里写图片描述" /></p>
+<h2 id="向量的加法和减法">向量的加法和减法</h2>
+<p>向量相加和相减的前提是两向量维度相同。结果向量的维度和原向量相同。</p>
+<p><strong>运算法则</strong></p>
+<p>将对应的向量元素相加。公式如下：</p>
+<p><span class="math display">\[\begin{bmatrix}a_1\\ a_2\\ \vdots\\a_n\end{bmatrix}+\begin{bmatrix}b_1\\ b_2\\ \vdots\\b_n\end{bmatrix}=\begin{bmatrix}a_1+b_1\\ a_2 + b_2\\ \vdots\\a_n+b_n\end{bmatrix}\]</span></p>
+<p>减法的操作可以转换为加法：<strong>a</strong>-<strong>b</strong>=<strong>a</strong>+(<strong>-b</strong>)</p>
+<p><strong>几何解释</strong> <img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAyMjIyNTUzODM0?x-oss-process=image/format,png" alt="这里写图片描述" /></p>
+<h2 id="向量点乘内积">向量点乘(内积)</h2>
+<p><strong>运算法则</strong></p>
+<p>向量点乘就是对应分量乘积的和，其结果是一个标量：</p>
+<p><span class="math display">\[\begin{bmatrix}a_1\\ a_2\\ \vdots\\a_n\end{bmatrix}\cdot\begin{bmatrix}b_1\\ b_2\\ \vdots\\b_n\end{bmatrix}=a_1b_1+a_2b_2+\cdots+a_nb_n\]</span></p>
+<p>用连加符号简写为：</p>
+<p><span class="math inline">\(a\cdot b=\sum_{i=1}^{n}a_ib_i\)</span></p>
+<p><strong>几何解释</strong></p>
+<p>一般来说，点乘结果描述了两个向量的“相似”程度，点乘结果越大，两向量越相近。如下图： <img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAyMjM0MzMyODg1?x-oss-process=image/format,png" alt="这里写图片描述" /></p>
+<p>点乘等于向量大小与向量夹角的<span class="math inline">\(cos\)</span>值的积：</p>
+<p><span class="math inline">\(a\cdot b=||a|| ||b||cos{\theta}\)</span></p>
+<h2 id="向量叉乘叉积">向量叉乘(叉积)</h2>
+<p><strong>运算法则</strong></p>
+<p>向量叉乘得到一个向量且不满足交换律，点乘满足交换律。公式如下：</p>
+<p><span class="math display">\[\begin{bmatrix}x_1\\y_1\\z_1\end{bmatrix}\times\begin{bmatrix}x_2\\y_2\\z_2\end{bmatrix} =\begin{bmatrix}y_1z_2 -z_1y_2\\z_1x_2-x_1z_2\\x_1y_2-y_1x_2\end{bmatrix}\]</span></p>
+<p><strong>几何解释</strong></p>
+<p>（1）.叉乘得到的向量垂直于原来的两个向量，如下图：</p>
+<figure>
+<img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAyMjMxNjIwNzEx?x-oss-process=image/format,png" alt="" /><figcaption>这里写图片描述</figcaption>
+</figure>
+<p><span class="math inline">\(a\times b\)</span>的长度等于向量的大小与向量的夹角<span class="math inline">\(sin\)</span>值的积，如下：</p>
+<p><span class="math display">\[||a\times b||=||a||||b||sin{\theta}\]</span></p>
+<p>已经证明了<span class="math inline">\(a\times b\)</span>垂直于a,b。但是垂直于a,b有两个方向。<span class="math inline">\(a\times b\)</span>指向哪个方向呢？通过将a的头与b的尾相连，并检测从a到b是顺时针还是逆时针。如果在左手坐标系中，左手四个（除大拇指）指母重贴与a,b向量的方向大拇指指向的方向就是<span class="math inline">\(a\times b\)</span>垂直的方向。右手坐标的也相同只是使用右手来判断。</p>
+<p>（2）.<span class="math inline">\(||a\times b||\)</span>也等于两向量组成的平行四边形的面积。</p>
+<h2 id="向量大小长度或模">向量大小(长度或模)</h2>
+<p><strong>运算法则</strong></p>
+<p>公式如下：</p>
+<p><span class="math display">\[||v||=\sqrt{v_1^2+v_2^2+\cdots+v_n^2}\]</span> 或 <span class="math display">\[||v||=\sqrt{\sum_{i=1}^{n} v_i^2}\]</span></p>
+<h2 id="距离公式">距离公式</h2>
+<p>同一坐标系中的两个点的距离，实际上可以看作是两个点构成的一个向量，那么两个点的距离就等于此向量的模长。</p>
+<p><strong>运算法则</strong></p>
+<p>距离<span class="math inline">\(（a,b）=||b-a||=\sqrt{(b_x-a_x)^2+(b_y-a_y)^2+(b_z-a_z)^2}\)</span></p>
+<h2 id="标准化向量">标准化向量</h2>
+<p>对于许多向量，我们只关心它的方向而不是大小。在这种情况下使用<strong>单位向量</strong>将会非常方便。单位向量就是大小为1的向量，单位向量也被称之为<strong>标准向量</strong>或更简洁地称为<strong>法线</strong>。</p>
+<p><strong>运算法则</strong></p>
+<p>对于任意非零向量<strong>v</strong>，都能计算出一个和<strong>v</strong>方向相同的单位向量<strong><span class="math inline">\(v_{norm}\)</span></strong>。这个过程被称作向量的标准化，要标准化向量，将向量除以他的大小（模）即可。公式如下：</p>
+<p><span class="math display">\[v_{norm}=\frac{v}{||v||},v\ne 0\]</span></p>
+<p>注意：零向量是不能被标准化的，因为除零是没有定义的。</p>
+<p><strong>几何解释</strong></p>
+<p>如下图： <img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAzMTEwNjMwNDk0?x-oss-process=image/format,png" alt="这里写图片描述" /></p>
+<h2 id="向量投影">向量投影</h2>
+<p>给定两个向量<strong>v</strong>和<strong>n</strong>，能将<strong>v</strong>分解成两个分量：<span class="math inline">\(v_{||}和v_{\perp}\)</span>。他们分别平行和垂直于<strong>n</strong>，并满足<span class="math inline">\(v=v_{||}+v_{\perp}\)</span>。一般称平行分量<span class="math inline">\(v_{||}\)</span>为<strong>v</strong>在<strong>n</strong>上的投影。</p>
+<p><strong>运算法则</strong></p>
+<p>公式如下：</p>
+<p><span class="math display">\[v_{||}=n\frac{v\cdot n}{||n||^2}\]</span> <span class="math display">\[v_{\perp}=v-v_{||}\]</span></p>
+<p><strong>几何解释</strong></p>
+<p>如下图： <img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTUxMjAzMTEzOTU2NzUx?x-oss-process=image/format,png" alt="这里写图片描述" /></p>
+<h1 id="总结">总结</h1>
+<p>向量是用来表示方位和距离的，也就是映射到每个轴的偏移。向量的常规运算有：向量与标量乘法，向量加减法，向量点乘，向量叉乘。</p>
+<h1 id="参考文献">参考文献</h1>
+<p>[1] <a href="https://union-click.jd.com/jdc?e=&amp;p=AyIGZRNbFgQQA1cdWSUHEw9dGFoTAhQBVysfSlpMWGVCHlBDUAxLBQNQVk4YCQQAQB1AWQkFHUVBRhkSQw9THUJVEEMFSgxUVxZPI0AOFwZdE1gUBBIBUxlrS3BlYBJJJgtiRx0tGDpAUGJYS2YLQw4eN1YbXxULGjdVGloWBhYHXR9ZJTISBGVaNRYCGwBVHGsXAxMGVxNdEQYVN1UfUhEEEgRcE1gWChQ3UhtSJdamgICT%2BsGvi9%2FkvmslBxMPXRhaEwIUAVcrWCUyIgdlGGtXbBRTBRkPEQVGDlAZXhBVGlQGEgtCC0ZXAUtbQlVABlUeaxcDEwNc" target="_blank" rel="noopener">Fletcher Dunnlan Parberry. 3D数学基础：图形与游戏开发.北京:清华大学出版社.2005.1.</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/03/15/Linux/CentOS%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8/" rel="next" title="CentOS开机自启动">
+                  <i class="fa fa-chevron-left"></i> CentOS开机自启动
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2020/04/01/%E6%B8%B8%E6%88%8F/%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95/%E6%B8%B8%E6%88%8F%E5%AF%BB%E8%B7%AF%E4%BB%8B%E7%BB%8D/" rel="prev" title="游戏寻路介绍">
+                  游戏寻路介绍 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#向量的基本定义"><span class="nav-number">1.</span> <span class="nav-text">向量的基本定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数学定义"><span class="nav-number">1.1.</span> <span class="nav-text">数学定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几何定义"><span class="nav-number">1.2.</span> <span class="nav-text">几何定义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向量的运算"><span class="nav-number">2.</span> <span class="nav-text">向量的运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#负向量"><span class="nav-number">2.1.</span> <span class="nav-text">负向量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标量与向量的乘法"><span class="nav-number">2.2.</span> <span class="nav-text">标量与向量的乘法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量的加法和减法"><span class="nav-number">2.3.</span> <span class="nav-text">向量的加法和减法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量点乘内积"><span class="nav-number">2.4.</span> <span class="nav-text">向量点乘(内积)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量叉乘叉积"><span class="nav-number">2.5.</span> <span class="nav-text">向量叉乘(叉积)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量大小长度或模"><span class="nav-number">2.6.</span> <span class="nav-text">向量大小(长度或模)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#距离公式"><span class="nav-number">2.7.</span> <span class="nav-text">距离公式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准化向量"><span class="nav-number">2.8.</span> <span class="nav-text">标准化向量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量投影"><span class="nav-number">2.9.</span> <span class="nav-text">向量投影</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="张卫"
+    src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">张卫</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/zw514159799" title="CSDN &amp;rarr; https:&#x2F;&#x2F;blog.csdn.net&#x2F;zw514159799" rel="noopener" target="_blank"><i class="fa fa-fw fa-csdn"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/Divad1111?tab=repositories" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;Divad1111?tab&#x3D;repositories" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.cnblogs.com/qilezaitu" title="博客园 &amp;rarr; https:&#x2F;&#x2F;www.cnblogs.com&#x2F;qilezaitu" rel="noopener" target="_blank"><i class="fa fa-fw fa-cnblogs"></i>博客园</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://baidu.com/" title="https:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://bing.com/" title="https:&#x2F;&#x2F;bing.com" rel="noopener" target="_blank">Bing</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张卫</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">24k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+</body>
+</html>
