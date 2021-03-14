@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="介绍 .Net是什么呢？.Net是1998年微软剑桥研究院的技术人员研究的下一代开发技术，并将其制定的规范(CLI)提交到了ECMA，形成了ECMA335规范, 随后被ISO采纳为国际标准ISO&#x2F;IEC 23271:2012。到2002微软正式发布了.NET Framework 1.0。.NET Framework是.Net开发技术规范的第一个实现，所以在初期.Net和.Net Framework">
+<meta property="og:type" content="article">
+<meta property="og:title" content="聊聊.Net开发平台">
+<meta property="og:url" content="http://yoursite.com/2021/03/04/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/CSharp/%E8%81%8A%E8%81%8A.Net%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0/index.html">
+<meta property="og:site_name" content="张卫的博客">
+<meta property="og:description" content="介绍 .Net是什么呢？.Net是1998年微软剑桥研究院的技术人员研究的下一代开发技术，并将其制定的规范(CLI)提交到了ECMA，形成了ECMA335规范, 随后被ISO采纳为国际标准ISO&#x2F;IEC 23271:2012。到2002微软正式发布了.NET Framework 1.0。.NET Framework是.Net开发技术规范的第一个实现，所以在初期.Net和.Net Framework">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/dotnet/dotnet-project-struct.png">
+<meta property="og:image" content="http://yoursite.com/images/dotnet/mach-o.png">
+<meta property="og:image" content="http://yoursite.com/images/dotnet/pblc.png">
+<meta property="article:published_time" content="2021-03-04T09:30:21.000Z">
+<meta property="article:modified_time" content="2021-03-14T07:33:11.243Z">
+<meta property="article:author" content="张卫">
+<meta property="article:tag" content=".Net">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/dotnet/dotnet-project-struct.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/03/04/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/CSharp/%E8%81%8A%E8%81%8A.Net%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>聊聊.Net开发平台 | 张卫的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">张卫的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Done is better than perfect</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/04/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/CSharp/%E8%81%8A%E8%81%8A.Net%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="张卫">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张卫的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          聊聊.Net开发平台
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-04 17:30:21" itemprop="dateCreated datePublished" datetime="2021-03-04T17:30:21+08:00">2021-03-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-14 15:33:11" itemprop="dateModified" datetime="2021-03-14T15:33:11+08:00">2021-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index">
+                    <span itemprop="name">编程语言</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C#</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="介绍">介绍</h1>
+<p>.Net是什么呢？.Net是1998年微软剑桥研究院的技术人员研究的下一代开发技术，并将其制定的规范(CLI)提交到了ECMA，形成了<a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-335/" target="_blank" rel="noopener">ECMA335</a>规范, 随后被ISO采纳为国际标准<a href="https://www.iso.org/standard/58046.html" target="_blank" rel="noopener">ISO/IEC 23271:2012</a>。到2002微软正式发布了.NET Framework 1.0。.NET Framework是.Net开发技术规范的第一个实现，所以在初期.Net和.Net Framework指的是同一个东西，但它们本质上是完全不同的。由于当时只有微软的.Net Framework实现了.Net标准所以也仅限于Windows开发栈。.Net Framework平台的内容包含很多组件和库，像WinForm, WebForm, WPF，Asp.net等。直到2004年Mono让其可以在Linux上运行了，慢慢的Mono也开始支持Android, iOS，MacOSx让.Net实现跨平台。<a id="more"></a>微软为了让.Net能够在多个平台上运行，在2014公布了.Net Core计划，并于2016年发布了第一个.Net开源版本.Net Core1.0该版本主要实现了Asp.net, 后陆续加入了WinForm和WPF的支持（仅在Windows平台下），意在将.Net Framework的功能移植成开源跨平台的版本，当然.Net Core 也是.Net的未来。为了快速的整合.Net的生态，微软在2016年收购了Xamarin（Mono）, 并将Xamarin的开发工具集整合到了Vistual Studio中，至此微软统一了.Net生态。废话说完，下面进入正题。聊一聊.Net中的相关概念和术语，相信大家也经见过一些，比如：CLI、CIL、CTS、CLS、CLR、JIT、BCL、FCL、Module、Assembly 等，本文不会安字典顺序来一一讲解，因为这样大家很难理解也很难记住，本文将通过大家熟悉的HelloWorld程序(基于.Net Core 5.0)来进行解释，欢迎主角登场！</p>
+<h1 id="helloworld粉墨登场">HelloWorld粉墨登场</h1>
+<p>本文实例基于 .Net core 5.0运行，我们先来创建一个控制台工程命名为HelloWorld，命令如下： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet new console -o ./HelloWorld</span><br></pre></td></tr></table></figure> 创建完成后将创建如下目录结构，如下图：</p>
+<figure>
+<img src="/images/dotnet/dotnet-project-struct.png" alt="" /><figcaption>dotnet初始项目结构</figcaption>
+</figure>
+<ul>
+<li>HelloWorld.csproj 项目文件</li>
+<li>Program.cs 默认入口代码Main函数</li>
+<li>obj 临时文件</li>
+</ul>
+<p>至此HelloWorld程序就完成了，代码如下： <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Program.cs</span></span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">HelloWorld</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"Hello World!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个代码虽然简单，就在控制台打印了一个“Hello World!”. 那这个Hello World有什么怎么被打印出来的呢？里面的Console.WriteLine有哪里来的呢？这个代码编译后会什么内容呢？会和C/C++编译出来的东西一样吗？这个代码又是如何运行起来的呢？这里面就要涉及到.Net规范的核心内容了，下面我们就通过这个Hello World程序来进行介绍。</p>
+<p>在HelloWorld目录里，运行如下命令将HelloWorld程序编译出来，命令如下： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet build -c <span class="string">"Release"</span></span><br></pre></td></tr></table></figure> 编译后将生产一个HelloWorld.dll的文件, 此文件就是一个程序集(Assembly)。那么这个程序集的结构是什么样的呢？</p>
+<h2 id="assembly">Assembly</h2>
+<p>Assembly包含了哪些内容呢？Assembly是一个自诉型程序集，主要有下面2类</p>
+<ol type="1">
+<li><strong>Manifest</strong> 清单部分描述了Assembly自身的一些基础信息，包括版本信息，以及对模块和其他程序集的引用关系等；Assembly至少包含一个Module，Module又是代码(CIL)的集合。</li>
+<li><strong>元数据</strong> 元数据描述了程序集拥有哪些类型，类型的成员，以及成员的可见性等。</li>
+<li><strong>CIL代码</strong>，详细信息参见下一节</li>
+</ol>
+<p>我们可以通过安装ILDASM工具来查看Assembly里的信息，命令如下：</p>
+<p><strong>安装</strong> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet tool install -g dotnet-ildasm</span><br></pre></td></tr></table></figure></p>
+<p><strong>查看程序集</strong> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet ildasm HelloWorld.dll -o ./HelloWorld.il</span><br></pre></td></tr></table></figure></p>
+<p>我们先目睹一下HelloWorld Assembly里的Manifest信息： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">.assembly extern System.Runtime</span><br><span class="line">&#123;</span><br><span class="line">  .publickeytoken &#x3D; ( B0 3F 5F 7F 11 D5 0A 3A ) &#x2F;&#x2F; .._.....</span><br><span class="line">  .ver 5:0:0:0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.assembly extern System.Console</span><br><span class="line">&#123;</span><br><span class="line">  .publickeytoken &#x3D; ( B0 3F 5F 7F 11 D5 0A 3A ) &#x2F;&#x2F; .._.....</span><br><span class="line">  .ver 5:0:0:0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.assembly &#39;HelloWorld&#39;</span><br><span class="line">&#123;</span><br><span class="line">  .custom instance void class [System.Runtime]System.Runtime.CompilerServices.CompilationRelaxationsAttribute::.ctor(int32) &#x3D; ( 01 00 08 00 00 00 00 00 ) &#x2F;&#x2F; ........</span><br><span class="line">  .custom instance void class [System.Runtime]System.Runtime.CompilerServices.RuntimeCompatibilityAttribute::.ctor() &#x3D; ( 01 00 01 00 54 02 16 57 72 61 70 4E 6F 6E 45 78 63 65 70 74 69 6F 6E 54 68 72 6F 77 73 01 ) &#x2F;&#x2F; ....T..WrapNonExceptionThrows.</span><br><span class="line">  .custom instance void class [System.Runtime]System.Runtime.Versioning.TargetFrameworkAttribute::.ctor(string) &#x3D; ( 01 00 18 2E 4E 45 54 43 6F 72 65 41 70 70 2C 56 65 72 73 69 6F 6E 3D 76 35 2E 30 01 00 54 0E 14 46 72 61 6D 65 77 6F 72 6B 44 69 73 70 6C 61 79 4E 61 6D 65 00 ) &#x2F;&#x2F; ....NETCoreApp.Version.v5.0..T..FrameworkDisplayName.</span><br><span class="line">  .custom instance void class [System.Runtime]System.Reflection.AssemblyCompanyAttribute::.ctor(string) &#x3D; ( 01 00 0A 48 65 6C 6C 6F 57 6F 72 6C 64 00 00 ) &#x2F;&#x2F; ...HelloWorld..</span><br><span class="line">  .custom instance void class [System.Runtime]System.Reflection.AssemblyConfigurationAttribute::.ctor(string) &#x3D; ( 01 00 07 72 65 6C 65 61 73 65 00 00 ) &#x2F;&#x2F; ...release..</span><br><span class="line">  .custom instance void class [System.Runtime]System.Reflection.AssemblyFileVersionAttribute::.ctor(string) &#x3D; ( 01 00 07 31 2E 30 2E 30 2E 30 00 00 ) &#x2F;&#x2F; ...1.0.0.0..</span><br><span class="line">  .custom instance void class [System.Runtime]System.Reflection.AssemblyInformationalVersionAttribute::.ctor(string) &#x3D; ( 01 00 05 31 2E 30 2E 30 00 00 ) &#x2F;&#x2F; ...1.0.0..</span><br><span class="line">  .custom instance void class [System.Runtime]System.Reflection.AssemblyProductAttribute::.ctor(string) &#x3D; ( 01 00 0A 48 65 6C 6C 6F 57 6F 72 6C 64 00 00 ) &#x2F;&#x2F; ...HelloWorld..</span><br><span class="line">  .custom instance void class [System.Runtime]System.Reflection.AssemblyTitleAttribute::.ctor(string) &#x3D; ( 01 00 0A 48 65 6C 6C 6F 57 6F 72 6C 64 00 00 ) &#x2F;&#x2F; ...HelloWorld..</span><br><span class="line">  .hash algorithm 0x00008004</span><br><span class="line">  .ver 1:0:0:0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.module &#39;HelloWorld.dll&#39;</span><br><span class="line">&#x2F;&#x2F; MVID: &#123;70604f0b-74ab-4028-87d6-2026571d0897&#125;</span><br><span class="line">.imagebase 0x00400000</span><br><span class="line">.file alignment 0x00000200</span><br><span class="line">.stackreserve 0x00100000</span><br><span class="line">.subsystem 0x0003  &#x2F;&#x2F; WindowsCui</span><br><span class="line">.corflags 0x00000001  &#x2F;&#x2F; ILOnly</span><br></pre></td></tr></table></figure></p>
+<h2 id="cil公共中间语言">CIL——公共中间语言</h2>
+<p>C#编译器将C#代码编译成包含了CIL的程序集(Assembly),其他的编程语言比如VB,F#等,通过自己的编译器将源码编译成CIL，那些能够被编译成CIL的编程语言我们统称为面向.Net的语言，正因为有CIL中间语言的存在才使得.Net能够实现跨语言编程。</p>
+<p>接下来我们看哈上面的C#的HelloWorld程序的CIL代码，如下： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">.class private auto ansi beforefieldinit HelloWorld.Program extends [System.Runtime]System.Object</span><br><span class="line">&#123;</span><br><span class="line">  .method private hidebysig static default void Main(string[] args) cil managed</span><br><span class="line">  &#123;</span><br><span class="line">    &#x2F;&#x2F; Method begins at Relative Virtual Address (RVA) 0x2050</span><br><span class="line">    .entrypoint</span><br><span class="line">    &#x2F;&#x2F; Code size 11 (0xB)</span><br><span class="line">    .maxstack 8</span><br><span class="line">    IL_0000: ldstr &quot;Hello World!&quot;</span><br><span class="line">    IL_0005: call void class [System.Console]System.Console::WriteLine(string)</span><br><span class="line">    IL_000a: ret</span><br><span class="line">  &#125; &#x2F;&#x2F; End of method System.Void HelloWorld.Program::Main(System.String[])</span><br><span class="line">  .method public hidebysig specialname rtspecialname instance default void .ctor() cil managed</span><br><span class="line">  &#123;</span><br><span class="line">    &#x2F;&#x2F; Method begins at Relative Virtual Address (RVA) 0x205C</span><br><span class="line">    &#x2F;&#x2F; Code size 7 (0x7)</span><br><span class="line">    .maxstack 8</span><br><span class="line">    IL_0000: ldarg.0</span><br><span class="line">    IL_0001: call instance void class [System.Runtime]System.Object::.ctor()</span><br><span class="line">    IL_0006: ret</span><br><span class="line">  &#125; &#x2F;&#x2F; End of method System.Void HelloWorld.Program::.ctor()</span><br><span class="line">&#125; &#x2F;&#x2F; End of class HelloWorld.Program</span><br></pre></td></tr></table></figure></p>
+<p>下面我们来分析一下“公共中间语言”的“公共”，“中间”和“语言”都代表的什么 ### 公共 公共指的是通用的意思，也就是说不论你用哪种语言编写的代码最终编译出的都是通过CIL来描述的，我们新建一个VB的HelloWorld工程，命令如下： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet new console -lang VB -o ./HelloWorldVB</span><br></pre></td></tr></table></figure> VB代码如下： <figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Imports</span> System</span><br><span class="line"></span><br><span class="line"><span class="keyword">Module</span> Program</span><br><span class="line">    <span class="keyword">Sub</span> Main(args <span class="keyword">As</span> <span class="built_in">String</span>())</span><br><span class="line">        Console.WriteLine(<span class="string">"Hello World!"</span>)</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Module</span></span><br></pre></td></tr></table></figure></p>
+<p>编译后将HelloWorldVB.dll通过ildasm工具反编译成CIL,代码如下： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.class private auto ansi sealed HelloWorldVB.Program extends [System.Runtime]System.Object</span><br><span class="line">&#123;</span><br><span class="line">  .custom instance void class [Microsoft.VisualBasic.Core]Microsoft.VisualBasic.CompilerServices.StandardModuleAttribute::.ctor() &#x3D; ( 01 00 00 00 ) &#x2F;&#x2F; ....</span><br><span class="line">  .method public static default void Main(string[] args) cil managed</span><br><span class="line">  &#123;</span><br><span class="line">    .custom instance void class [System.Runtime]System.STAThreadAttribute::.ctor() &#x3D; ( 01 00 00 00 ) &#x2F;&#x2F; ....</span><br><span class="line">    &#x2F;&#x2F; Method begins at Relative Virtual Address (RVA) 0x2050</span><br><span class="line">    .entrypoint</span><br><span class="line">    &#x2F;&#x2F; Code size 11 (0xB)</span><br><span class="line">    .maxstack 8</span><br><span class="line">    IL_0000: ldstr &quot;Hello World!&quot;</span><br><span class="line">    IL_0005: call void class [System.Console]System.Console::WriteLine(string)</span><br><span class="line">    IL_000a: ret</span><br><span class="line">  &#125; &#x2F;&#x2F; End of method System.Void HelloWorldVB.Program::Main(System.String[])</span><br><span class="line">&#125; &#x2F;&#x2F; End of class HelloWorldVB.Program</span><br></pre></td></tr></table></figure> 可以看出C#和VB编译出来的CIL代码基本上一样只是C#多生成了一个类的构造函数。因为VB是面向过程的编程所以不存在类和类的构造函数这一说。现在我们应该明白公共代表什么意思了吧！</p>
+<h3 id="中间">中间</h3>
+<p>为什么是“中间”呢？CIL不像C/C++静态语言会直接编译链接成CPU能够直接执行的机器码，而是需要一个公共语言运行时(CLR)来进行及时的编译（JIT）。所以将其称为中间语言。JIT编译器的根据执行编译阶段大致可以分为3类： 1. Pre-JIT 编译器，在程序集部署时进行编译，就是通过一个Ngen.exe(本地代码生成器)将CIL转换为本地机器码。 2. Normal JIT 编译器，在程序集首次调用的时候将其编译成本地机器码并缓存。 3. Econo JIT 编译器，在方法执行前进行编译，执行完后删除，dotnet2.0后就使用的此类型的JIT</p>
+<h3 id="语言">语言</h3>
+<p>CIL其实本身也是一门基于堆栈的编程语言，只是相比C#要稍微低级（并不是很low的意思）一些，我们也可以直接写CIL代码然后使用ILASM工具将其转换成程序集在CLR中运行。</p>
+<p>我们在回头看看HelloWorld程序，里面调用了一个Console.WriteLine函数，那这个函数又是哪里来的呢？</p>
+<h2 id="bcl和fcl">BCL和FCL</h2>
+<h3 id="bcl-基础类库">BCL-基础类库</h3>
+<p>我们在开发一个程序时，不可能任何基础功能都功能都从零开始，所以CLI为我们定义了一个基础类库，用于实现基础功能，比如像组数，链表，字典, Console,包括基本原类型byte，short, long这这些都是基于System下的System.Byte,System.Int16和System.Int64,当然还包含了先系统相关的功能比如线程,安全性等。虽然BCL构成了我们编程的基础库，但是比如我们要开发一个Windows的应用，那么界面该如何搭建呢，界面上又有哪些空间呢？不可能每个程序自己去写吧！接下来就要介绍框架类库-FCL了。</p>
+<h3 id="fcl-框架类库">FCL-框架类库</h3>
+<p>BCL只是框架类库的一个子集而已，FCL包含的功能巨多，也是我们经常使用的类库，每个FCL的子库都够写一本书的了，我们更具功能可以将FCL大致分为一下3层。 - 最内一层，由BCL的大部分组成，主要作用是对.NET框架，.NET运行时及CIL语言本身进行支持，例如基元类型、集合类型、线程处理、应用程序域、运行时、安全性、互操作等。 - 中间一层，包含了对操作系统功能的封装，例如文件系统、网络连接、图形图像、XML操作等。 - 最外一层，包含各种类型的应用程序，例如Windows Forms、Asp.NET、WPF等。</p>
+<h2 id="cts-公共类型系统">CTS-公共类型系统</h2>
+<p>如果我们要开发一门像C#或VB一样的语言，在编译后也生成CIL语言，在.Net环境中运行，那么我们这个语言具有哪些特性就不是我们语言所能决定的了，而是有CIL所定义的规则决定的，而这些定义的规则就是CTS,CTS中定义了类，接口，结构体也定义了类里能包含属性，字段，函数，事件等，也定义了类只能继承一个父类，可以实现多个接口。C#和VB就是微软定义的符合CTS规则的语言。</p>
+<h2 id="cls-公共语言规范">CLS-公共语言规范</h2>
+<p>假设我们有3门面向.Net的语言，如果3门语言公开（Public）部分需要相互调用,那么他们必定需要遵循一定规则，这个规则就是CLS,CLS是CTS的一个子集，各个面向.Net的语言需要准守这个规范，否则就不就会存在互调的兼容性问题。CLS具体有哪些规则呢？是否区分大小写，标识符的命名规则如何，可以使用的基本类型有哪些，构造函数的调用方式（是否会调用基类构造函数），支持的访问修饰符等。</p>
+<h2 id="clr-公共语言运行时">CLR-公共语言运行时</h2>
+<p>前面我们了解了.Net SDK编译出来的程序集（Assembly）的相关信息，下面我们将接着讨论，编程出来的程序集是怎么运行起来的呢？这就的归功于CLR，CLR其实就是一个能够执行CIL的虚拟机，其主要功能包括：管理应用程序域、加载和运行程序集、安全检查、JIT(将CIL代码即时编译为机器代码)、异常处理、对象析构和垃圾回收等。现在我们了解了CLR的功能，但是还是不知道它是怎么运行起来的。要说清楚这个问题我们不必须先看看在系统中可执行文件的格式，在MacOs中是Mach-O格式，在Windows中是PE/COFF格式，在Linux是ELF格式，我们详细看下Mach-O文件吧，其他的格式都大同小异。Mach-O格式如下： <img src="/images/dotnet/mach-o.png" alt="Mach-O" /></p>
+<p>Mach-O 的组成结构如图所示包括了：</p>
+<ul>
+<li><p>Header 包含该二进制文件的一般信息 字节顺序、架构类型、加载指令的数量等。 使得可以快速确认一些信息，比如当前文件用于 32 位还是 64 位，对应的处理器是什么、文件类型是什么</p></li>
+<li><p>Load commands 一张包含很多内容的表 内容包括区域的位置、符号表、动态符号表等。</p></li>
+<li><p>Data 通常是对象文件中最大的部分 包含 Segement 的具体数据</p></li>
+</ul>
+<p>每个段的具体信息可以通过otool工具进行查看。 系统运行Mach-O文件大致步骤： 1. 系统把Mach-O文件加载进入内存， 2. 检查头看是否是相同CPU架构是否和符合当前的系统需求 3. 链接动态库 4. 找到入口程序(Main函数)的地址开始执行</p>
+<p>我们发布一下HelloWorld程序，代码如下： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet publish -r osx-x64 -c Release --self-contained</span><br></pre></td></tr></table></figure> 我们通过自包含的方式发布，这样就不需要目标机器上安装.Net运行时了。我们来看一下发布后的文件有哪些,如下图： <img src="/images/dotnet/pblc.png" alt="发布类容" /></p>
+<p>重点是HelloWorld文件，这个文件是启动文件，这是一个Mach-O格式的文件，就想普通的MacOs系统的可以执行文件一样，他会链接像libclrjit.dylib,libcoreclr.dylib的CLR相关动态库文件，这样当HelloWorld通过系统调起的时候便会启动CLR, 并执行HelloWorld.dll中的主函数。我也可以直接使用dotnet HelloWorld.dll执行我们的程序集，因为dotnet这个Mach-o格式文件会去链接CLR相关的库。</p>
+<h1 id="总结">总结</h1>
+<p>此篇文章主要讲了CLI规范中的相关术语，并通过一个HelloWorld的程序了解了一个CIL程序集时如何被编译生成的，也了解了一个程序集的内部结构，对.Net平台也有更深入的理解。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Net/" rel="tag"><i class="fa fa-tag"></i> .Net</a>
+              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C#</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2021/03/03/%E5%B7%A5%E5%85%B7/Hexo/%E5%9C%A8Hexo%E4%B8%AD%E6%B8%B2%E6%9F%93MathJax%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/" rel="next" title="在Hexo中使用Mathjax渲染数学公式">
+                  <i class="fa fa-chevron-left"></i> 在Hexo中使用Mathjax渲染数学公式
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#helloworld粉墨登场"><span class="nav-number">2.</span> <span class="nav-text">HelloWorld粉墨登场</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#assembly"><span class="nav-number">2.1.</span> <span class="nav-text">Assembly</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cil公共中间语言"><span class="nav-number">2.2.</span> <span class="nav-text">CIL——公共中间语言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#中间"><span class="nav-number">2.2.1.</span> <span class="nav-text">中间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语言"><span class="nav-number">2.2.2.</span> <span class="nav-text">语言</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bcl和fcl"><span class="nav-number">2.3.</span> <span class="nav-text">BCL和FCL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bcl-基础类库"><span class="nav-number">2.3.1.</span> <span class="nav-text">BCL-基础类库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fcl-框架类库"><span class="nav-number">2.3.2.</span> <span class="nav-text">FCL-框架类库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cts-公共类型系统"><span class="nav-number">2.4.</span> <span class="nav-text">CTS-公共类型系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cls-公共语言规范"><span class="nav-number">2.5.</span> <span class="nav-text">CLS-公共语言规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clr-公共语言运行时"><span class="nav-number">2.6.</span> <span class="nav-text">CLR-公共语言运行时</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="张卫"
+    src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">张卫</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/zw514159799" title="CSDN &amp;rarr; https:&#x2F;&#x2F;blog.csdn.net&#x2F;zw514159799" rel="noopener" target="_blank"><i class="fa fa-fw fa-csdn"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/Divad1111?tab=repositories" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;Divad1111?tab&#x3D;repositories" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.cnblogs.com/qilezaitu" title="博客园 &amp;rarr; https:&#x2F;&#x2F;www.cnblogs.com&#x2F;qilezaitu" rel="noopener" target="_blank"><i class="fa fa-fw fa-cnblogs"></i>博客园</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://baidu.com/" title="https:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://bing.com/" title="https:&#x2F;&#x2F;bing.com" rel="noopener" target="_blank">Bing</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张卫</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">33k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">30 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

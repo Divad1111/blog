@@ -1,6 +1,6 @@
 # 数学物理
 # 算法与数据结构
-# 语言
+# 编程语言
     ## c/c++
     ## javascript/typescript
     ## c#
