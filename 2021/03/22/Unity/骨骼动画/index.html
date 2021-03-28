@@ -50,15 +50,24 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="张卫的博客">
-<meta property="og:url" content="http://yoursite.com/archives/2020/03/index.html">
+  <meta name="description" content="本文主要基于Blender创建一个简单的机器人，并基于此机器人来了解骨骼动画的制作流程。制作骨骼动画主要包含以下步骤：  建模 构建骨骼 蒙皮和权重绘制 动画制作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="骨骼动画">
+<meta property="og:url" content="http://yoursite.com/2021/03/22/Unity/%E9%AA%A8%E9%AA%BC%E5%8A%A8%E7%94%BB/index.html">
 <meta property="og:site_name" content="张卫的博客">
+<meta property="og:description" content="本文主要基于Blender创建一个简单的机器人，并基于此机器人来了解骨骼动画的制作流程。制作骨骼动画主要包含以下步骤：  建模 构建骨骼 蒙皮和权重绘制 动画制作">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/cg/rotbot.png">
+<meta property="og:image" content="http://yoursite.com/images/cg/skeleton.png">
+<meta property="og:image" content="http://yoursite.com/images/cg/animation.png">
+<meta property="article:published_time" content="2021-03-22T13:20:49.000Z">
+<meta property="article:modified_time" content="2021-03-28T14:37:29.516Z">
 <meta property="article:author" content="张卫">
+<meta property="article:tag" content="动画">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/cg/rotbot.png">
 
-<link rel="canonical" href="http://yoursite.com/archives/2020/03/">
+<link rel="canonical" href="http://yoursite.com/2021/03/22/Unity/%E9%AA%A8%E9%AA%BC%E5%8A%A8%E7%94%BB/">
 
 
 <script id="page-configurations">
@@ -66,13 +75,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>归档 | 张卫的博客</title>
+  <title>骨骼动画 | 张卫的博客</title>
   
 
 
@@ -182,46 +191,124 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/22/Unity/%E9%AA%A8%E9%AA%BC%E5%8A%A8%E7%94%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="张卫">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张卫的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          骨骼动画
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-22 21:20:49" itemprop="dateCreated datePublished" datetime="2021-03-22T21:20:49+08:00">2021-03-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-28 22:37:29" itemprop="dateModified" datetime="2021-03-28T22:37:29+08:00">2021-03-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
+        <p>本文主要基于Blender创建一个简单的机器人，并基于此机器人来了解骨骼动画的制作流程。制作骨骼动画主要包含以下步骤：</p>
+<ol type="1">
+<li>建模</li>
+<li>构建骨骼</li>
+<li>蒙皮和权重绘制</li>
+<li>动画制作</li>
+</ol>
+<a id="more"></a>
+<h1 id="建模">建模</h1>
+<p>建模就是通过最基础的几何图元点，线，面构建出各种不同形状的模型。构建好的机器人，如下图： <img src="/images/cg/rotbot.png" alt="构建好的机器人模型" /></p>
+<h1 id="构建骨骼">构建骨骼</h1>
+<p>模型建好后就可以开始构建Skeleton(骨骼)了，在构建Skeleton之前先来了解一下Bone(骨头)和Joint(关节)，其实和人体结构一样骨架也是由骨头和关节组成的有关节的地方就可以旋转，由大臂带动小臂也就是说小臂是大臂的一个子骨头，当大臂旋转时小臂也会跟着旋转。 <img src="/images/cg/skeleton.png" alt="骨骼" /></p>
+<h1 id="蒙皮与权重绘制">蒙皮与权重绘制</h1>
+<p>现在骨骼构建好了，但是骨骼的旋转并没有带动模型顶点的改变，接下来要做的就是对骨骼进行蒙皮，蒙皮就是将模型的顶点附着到骨头上，也就是会记录受这个骨头所影响的顶点在这个骨头空间下的坐标位置。像关节这些地方的一个顶点可能会受多个骨骼影响所以每个顶点上还要记录每个顶点在每个骨骼下的权重，如果自动计算的权重不能满足那就需要手动绘制权重。当蒙皮和权重绘制好了，我们就可以通过骨骼的运动(主要是旋转)来带动顶点的运行。 顶点的位置计算过程大致如下：</p>
+<ol type="1">
+<li>通过父子骨骼之间的变换矩阵，计算出最终在世界坐标下的变换矩阵。</li>
+<li>再将骨骼空间下顶点的坐标点乘以第一步计算出来的变换矩阵就计算出了顶点的世界坐标。</li>
+<li>每个顶点的最终位置还得根据影响这个顶点的骨骼进行混合。</li>
+</ol>
+<h1 id="创建动画">创建动画</h1>
+<p>骨骼和顶点绑定后，就只需要创建动画驱动骨骼进行运动，骨骼的运动又会带动骨骼关联的顶点进行运动，这样便形成了完整的动画。动画文件只需要记录每个关键帧骨骼的位置，旋转和缩放就能通过插值算法计算出平滑的动画。 <img src="/images/cg/animation.png" alt="Blender动画" /></p>
+<h1 id="参考">参考</h1>
+<p><a href="https://dototot.com/beginner-blender-tutorial-how-to-model-and-animate-a-robot/" target="_blank" rel="noopener">Beginner Blender Tutorial: How to Model &amp; Animate a Robot</a></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-10T11:02:33+08:00"
-              content="2020-03-10">
-          03-10
-        </time>
-      </div>
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%8A%A8%E7%94%BB/" rel="tag"><i class="fa fa-tag"></i> 动画</a>
+          </div>
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/10/%E6%9C%8D%E5%8A%A1%E5%99%A8/Docker/CentOS%E5%AE%89%E8%A3%85Docker/" itemprop="url">
-            <span itemprop="name">CentOS安装Docker</span>
-          </a>
-      </h2>
+        
 
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2021/03/21/Unity/Unity%E5%BA%8F%E5%88%97%E5%B8%A7%E5%8A%A8%E7%94%BB/" rel="next" title="Unity序列帧动画">
+                  <i class="fa fa-chevron-left"></i> Unity序列帧动画
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -250,6 +337,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#建模"><span class="nav-number">1.</span> <span class="nav-text">建模</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构建骨骼"><span class="nav-number">2.</span> <span class="nav-text">构建骨骼</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#蒙皮与权重绘制"><span class="nav-number">3.</span> <span class="nav-text">蒙皮与权重绘制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建动画"><span class="nav-number">4.</span> <span class="nav-text">创建动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
